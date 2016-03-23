@@ -13,7 +13,8 @@
     "babel-loader": "^5.3.3",
     "http-server": "^0.9.0",
     "nodemon": "^1.9.1",
-    "webpack": "^1.12.14"
+    "webpack": "^1.12.14",
+    "webpack-dev-server": "^1.14.1"
   },
   "dependencies": {
     "react": "^0.14.7",
@@ -21,6 +22,7 @@
   },
   "scripts": {
     "build": "./node_modules/.bin/webpack",
-    "dev-server": "./node_modules/.bin/webpack-dev-server"
+    "watch": "./node_modules/.bin/webpack --watch",
+    "dev-server": "./node_modules/.bin/webpack-dev-server --content-base ./app --port 1889 --inline --hot"
   }
 }

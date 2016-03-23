@@ -19701,25 +19701,64 @@
 	var App = (function (_Component) {
 	  _inherits(App, _Component);
 
-	  function App() {
+	  function App(props) {
 	    _classCallCheck(this, App);
 
-	    _get(Object.getPrototypeOf(App.prototype), 'constructor', this).apply(this, arguments);
+	    _get(Object.getPrototypeOf(App.prototype), 'constructor', this).call(this, props);
+	    this.state = {
+	      username: 'kazuto123',
+	      userData: [],
+	      userRepo: [],
+	      perPage: 5
+	    };
 	  }
 
+	  // Get user data from github
+
 	  _createClass(App, [{
+	    key: 'getUserData',
+	    value: function getUserData() {
+	      $.ajax({
+	        url: 'https://api.github.com/users/' + this.state.username + '?client_id=' + this.props.clientId + '&client_secret=' + this.props.clientSecret,
+	        dataType: 'json',
+	        cache: false,
+	        success: (function (data) {
+	          console.log(data);
+	        }).bind(this),
+	        error: (function (xhr, status, error) {
+	          alert(error);
+	        }).bind(this)
+	      });
+	    }
+	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this.getUserData();
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2['default'].createElement(
 	        'div',
 	        null,
-	        'MyAPP -- chlll lalala'
+	        'Username: ',
+	        this.state.username
 	      );
 	    }
 	  }]);
 
 	  return App;
 	})(_react.Component);
+
+	App.propType = {
+	  clientId: _react2['default'].PropTypes.string,
+	  clientSecret: _react2['default'].PropTypes.string
+	};
+
+	App.defaultProps = {
+	  clientId: '118714378d1f6402fad6',
+	  clientSecret: 'cd2e5b70aa94c235d200fc3cb70267d297d6269b'
+	};
 
 	exports['default'] = App;
 	module.exports = exports['default'];
